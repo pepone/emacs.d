@@ -12,6 +12,26 @@
 ;;
 (setq inhibit-startup-message t)
 
+;;
+;; Full screen
+;;
+(defun toggle-fullscreen ()
+  "Toggle full screen on X11"
+  (interactive)
+  (when (eq window-system 'x)
+    (set-frame-parameter
+     nil 'fullscreen
+     (when (not (frame-parameter nil 'fullscreen)) 'fullboth))))
+
+(global-set-key [f11] 'toggle-fullscreen)
+
+
+;;
+;; Hide tool bar and menu bar
+;;
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+
 
 ;;
 ;; activate whitespace-mode to view all whitespace characters
@@ -43,10 +63,10 @@
 ;;
 ;; SLIME
 ;;
-(add-to-list 'load-path "/usr/local/share/slime")
-(require 'slime-autoloads)
-(setq slime-contribs '(slime-fancy)) ; almost everything
-(setq inferior-lisp-program "/usr/local/bin/sbcl")
+;;(add-to-list 'load-path "/usr/local/share/slime")
+;;(require 'slime-autoloads)
+;;(setq slime-contribs '(slime-fancy)) ; almost everything
+;;(setq inferior-lisp-program "/usr/local/bin/sbcl")
 
 (put 'upcase-region 'disabled nil)
 
