@@ -15,8 +15,9 @@
       inhibit-startup-screen t
       initial-scratch-message nil)
 
-(tool-bar-mode -1) ;; disable the UI tool bar
-(menu-bar-mode -1) ;; disable the UI menu bar
+(tool-bar-mode -1) ;; disable the tool bar
+(menu-bar-mode -1) ;; disable the menu bar
+(scroll-bar-mode -1) ;; disable scroll bar
 (blink-cursor-mode -1)
 (line-number-mode)
 (column-number-mode)
@@ -37,6 +38,7 @@
 ;; Reload buffer bind to f5
 (global-set-key (kbd "<f5>") 'revert-buffer)
 
+;; Enter full screen mode f11
 (defun toggle-fullscreen ()
   "Toggle full screen on X11"
   (interactive)
@@ -68,7 +70,6 @@
   :config
   (spaceline-spacemacs-theme))
 
-;;
 ;; Replace list buffers with Ibuffer
 (use-package ibuffer
   :ensure nil
@@ -86,7 +87,6 @@
     ))
 
 ;; Magit
-;;
 (use-package magit
   :ensure t)
 (global-set-key (kbd "C-x g") 'magit-status)
