@@ -69,6 +69,10 @@
   (spaceline-spacemacs-theme))
 
 ;;
+;; Replace list buffers with Ibuffer
+(use-package ibuffer
+  :ensure nil
+  :bind ("C-x C-b" . ibuffer))
 ;; Magit
 ;;
 (use-package magit
