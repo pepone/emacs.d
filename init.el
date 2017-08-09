@@ -46,12 +46,9 @@
     (set-frame-parameter
      nil 'fullscreen
      (when (not (frame-parameter nil 'fullscreen)) 'fullboth))))
-
 (global-set-key [f11] 'toggle-fullscreen)
 
-(use-package try
-  :ensure t)
-
+;; which key
 (use-package which-key
   :ensure t
   :config
