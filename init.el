@@ -82,6 +82,11 @@
        ((t (:inherit ace-jump-face-foreground :height 3.0)))))
     ))
 
+;; git-gutter
+(use-package git-gutter
+  :ensure t
+  :config
+  (global-git-gutter-mode +1))
 ;; Magit
 (use-package magit
   :ensure t)
