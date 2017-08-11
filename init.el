@@ -87,6 +87,16 @@
   :ensure t
   :config
   (global-git-gutter-mode +1))
+
+;; Markdown
+
+(use-package markdown-mode
+  :ensure t
+  :commands (markdown-mode gfm-mode)
+  :mode (("\\.md\\'" . gfm-mode)
+         ("\\.markdown\\'" . gfm-mode))
+  :init (setq markdown-command "multimarkdown"))
+
 ;; Magit
 (use-package magit
   :ensure t)
