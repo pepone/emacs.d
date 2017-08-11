@@ -56,15 +56,12 @@
 ;;
 ;; Theme configuration
 ;;
-(use-package spacemacs-theme
+(use-package moe-theme
   :ensure t
   :init
-  (load-theme 'spacemacs-dark t))
-
-(use-package spaceline-config
-  :ensure spaceline
   :config
-  (spaceline-spacemacs-theme))
+  (moe-light)
+  (powerline-moe-theme))
 
 ;; Replace list buffers with Ibuffer
 (use-package ibuffer
