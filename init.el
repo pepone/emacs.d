@@ -54,14 +54,12 @@
   :config
   (which-key-mode))
 
-;;
 ;; Theme configuration
-;;
 (use-package moe-theme
   :ensure t
   :init
   :config
-  (moe-light)
+  (moe-dark)
   (powerline-moe-theme))
 
 ;; Replace list buffers with Ibuffer
