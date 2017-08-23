@@ -78,20 +78,7 @@
        ((t (:inherit ace-jump-face-foreground :height 3.0)))))
     ))
 
-;; line numbers
-(use-package linum
-  :ensure t
-  :config
-  (global-linum-mode t))
-
-;; git-gutter
-(use-package git-gutter
-  :ensure t
-  :config
-  (global-git-gutter-mode +1))
-
 ;; Markdown
-
 (use-package markdown-mode
   :ensure t
   :commands (markdown-mode gfm-mode)
