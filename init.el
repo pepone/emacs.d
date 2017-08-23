@@ -116,7 +116,8 @@
     (global-set-key (kbd "C-c k") 'counsel-ag)
     (global-set-key (kbd "C-x l") 'counsel-locate)
     (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
-    (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)))
+    (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
+    (setq counsel-git-grep-cmd-default "git --no-pager grep --full-name -n --no-color -i -e \"%s\"")))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
