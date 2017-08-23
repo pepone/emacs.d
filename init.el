@@ -20,6 +20,7 @@
 (blink-cursor-mode -1)
 (line-number-mode)
 (column-number-mode)
+(set-fringe-mode 0) ;; Disabling fringe (that little column on the left
 
 ;; activate whitespace-mode to view all whitespace characters
 (global-set-key (kbd "C-c w") 'whitespace-mode)
