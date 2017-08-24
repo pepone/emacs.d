@@ -55,12 +55,11 @@
   (which-key-mode))
 
 ;; Theme configuration
-(use-package moe-theme
+(use-package base16-theme
   :ensure t
   :init
-  :config
-  (moe-dark)
-  (powerline-moe-theme))
+  (load-theme 'base16-default-dark t)
+  (powerline-default-theme))
 
 ;; Replace list buffers with Ibuffer
 (use-package ibuffer
