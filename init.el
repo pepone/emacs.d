@@ -87,8 +87,10 @@
 
 ;; Magit
 (use-package magit
-  :ensure t)
-(global-set-key (kbd "C-x g") 'magit-status)
+  :ensure t
+  :config
+  (progn
+    (global-set-key (kbd "C-x g") 'magit-status)))
 
 ;; Ivy completion framework with Counsel and Swipter enhacements
 (use-package counsel
