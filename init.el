@@ -58,7 +58,11 @@
 (use-package base16-theme
   :ensure t
   :init
-  (load-theme 'base16-default-dark t)
+  (load-theme 'base16-default-dark t))
+
+(use-package powerline
+  :ensure t
+  :config
   (powerline-default-theme))
 
 ;; Replace list buffers with Ibuffer
