@@ -58,7 +58,7 @@
 (use-package base16-theme
   :ensure t
   :init
-  (load-theme 'base16-default-dark t))
+  (load-theme 'base16-dracula t))
 
 (use-package powerline
   :ensure t
