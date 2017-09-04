@@ -129,6 +129,13 @@
     (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
     (setq counsel-git-grep-cmd-default "git --no-pager grep --full-name -n --no-color -i -e \"%s\"")))
 
+;; ensure environment variables inside Emacs look the same as in the user's shell
+(use-package exec-path-from-shell
+  :ensure t
+  :config
+  (exec-path-from-shell-initialize))
+
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
