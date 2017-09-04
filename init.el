@@ -61,6 +61,8 @@
   (load-theme 'base16-dracula t))
 
 (use-package powerline
+(set-default-font "Courier Prime Code 12")
+(setq-default line-spacing 4)
   :ensure t
   :config
   (powerline-default-theme))
