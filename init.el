@@ -60,12 +60,14 @@
   :init
   (load-theme 'base16-dracula t))
 
-(use-package powerline
 (set-default-font "Courier Prime Code 12")
 (setq-default line-spacing 4)
+
+(use-package spaceline
   :ensure t
   :config
-  (powerline-default-theme))
+  (require 'spaceline-config)
+  (spaceline-emacs-theme))
 
 ;; Replace list buffers with Ibuffer
 (use-package ibuffer
