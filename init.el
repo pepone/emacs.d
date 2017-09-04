@@ -105,7 +105,7 @@
   :ensure t)
 
 (use-package swiper
-  :ensure try
+  :ensure t
   :config
   (progn
     (ivy-mode 1)
