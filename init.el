@@ -95,7 +95,9 @@
   :commands (markdown-mode gfm-mode)
   :mode (("\\.md\\'" . gfm-mode)
          ("\\.markdown\\'" . gfm-mode))
-  :init (setq markdown-command "multimarkdown"))
+  :init
+  (setq markdown-command "multimarkdown")
+  (add-hook 'markdown-mode-hook 'flyspell-mode))
 
 ;; Magit
 (use-package magit
