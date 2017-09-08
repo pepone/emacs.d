@@ -85,6 +85,10 @@
        ((t (:inherit ace-jump-face-foreground :height 3.0)))))
     ))
 
+(use-package flyspell
+  :ensure t
+  :config (setq ispell-program-name "aspell"))
+
 ;; Markdown
 (use-package markdown-mode
   :ensure t
