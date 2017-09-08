@@ -107,7 +107,8 @@
   :ensure t
   :config
   (progn
-    (global-set-key (kbd "C-x g") 'magit-status)))
+    (global-set-key (kbd "C-x g") 'magit-status)
+    (setq git-commit-setup-hook '(git-commit-turn-on-flyspell))))
 
 ;; Ivy completion framework with Counsel and Swipter enhacements
 (use-package counsel
