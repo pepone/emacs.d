@@ -26,6 +26,12 @@
   :ensure t
   :config (ace-popup-menu-mode 1))
 
+(use-package org-bullets
+  :config
+  (add-hook 'org-mode-hook (lambda ()
+                             (org-bullets-mode 1)))
+  :ensure t)
+
 ;; activate whitespace-mode to view all whitespace characters
 (global-set-key (kbd "C-c w") 'whitespace-mode)
 
