@@ -139,12 +139,13 @@
     (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
     (global-set-key (kbd "C-c g") 'counsel-git)
     (global-set-key (kbd "C-c j") 'counsel-git-grep)
-    (global-set-key (kbd "C-c k") 'counsel-ag)
+    (global-set-key (kbd "C-c k") 'counsel-rg)
     (global-set-key (kbd "C-x l") 'counsel-locate)
     (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
+    (global-set-key (kbd "C-s") 'counsel-grep-or-swiper)
     (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
-    (setq counsel-git-grep-cmd-default "git --no-pager grep --full-name -n --no-color -i -e \"%s\"")))
-
+    (setq counsel-git-grep-cmd-default "git --no-pager grep --full-name -n --no-color -i -e \"%s\"")
+    (setq counsel-grep-base-command "rg -i -M 120 --no-heading --line-number --color never '%s' %s")))
 
 ;; ensure environment variables inside Emacs look the same as in the user's shell
 ;; (use-package exec-path-from-shell
