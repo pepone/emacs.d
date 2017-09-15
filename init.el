@@ -153,6 +153,10 @@
     (setq counsel-git-grep-cmd-default "git --no-pager grep --full-name -n --no-color -i -e \"%s\"")
     (setq counsel-grep-base-command "rg -i -M 120 --no-heading --line-number --color never '%s' %s")))
 
+(use-package org
+  :ensure t
+  :config
+  (add-to-list 'org-file-apps '(directory . emacs)))
 ;; ensure environment variables inside Emacs look the same as in the user's shell
 ;; (use-package exec-path-from-shell
 ;;  :ensure t
