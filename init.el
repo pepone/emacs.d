@@ -44,6 +44,12 @@
 
 ;; Set appearance of a tab that is represented by 8 spaces
 (setq-default tab-width 8)
+(setq-default c-basic-offset 4)
+(c-set-offset 'defun-block-intro 4)
+(c-set-offset 'statement-block-intro 4)
+(c-set-offset 'substatement-open 0)
+(c-set-offset 'comment-intro 0)
+(c-set-offset 'func-decl-cont 0)
 
 ;; Reload buffer bind to f5
 (global-set-key (kbd "<f5>") 'revert-buffer)
