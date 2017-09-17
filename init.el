@@ -122,6 +122,14 @@
     (global-set-key (kbd "C-x g") 'magit-status)
     (setq git-commit-setup-hook '(git-commit-turn-on-flyspell))))
 
+(use-package recentf
+  :config
+  (setq recentf-max-saved-items 2000)
+  (setq recentf-auto-cleanup 'never)
+  (setq recentf-exclude '((expand-file-name "~/.emacs.d/elpa/**")
+                          "/tmp" "/ssh:" "**/*.*~" "**/##*.*##"))
+  (recentf-mode 1))
+
 ;; Ivy completion framework with Counsel and Swipter enhacements
 (use-package counsel
   :ensure t)
