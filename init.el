@@ -94,11 +94,10 @@
 (use-package ace-window
   :ensure t
   :init
-  (progn
-    (global-set-key [remap other-window] 'ace-window)
-    (custom-set-faces
-     '(aw-leading-char-face
-       ((t (:inherit ace-jump-face-foreground :height 3.0)))))))
+  (global-set-key [remap other-window] 'ace-window)
+  (custom-set-faces
+   '(aw-leading-char-face
+     ((t (:inherit ace-jump-face-foreground :height 3.0))))))
 
 (use-package flyspell
   :ensure t
@@ -117,10 +116,10 @@
 ;; Magit
 (use-package magit
   :ensure t
+  :bind
+  (("C-x g" . magit-status))
   :config
-  (progn
-    (global-set-key (kbd "C-x g") 'magit-status)
-    (setq git-commit-setup-hook '(git-commit-turn-on-flyspell))))
+  (setq git-commit-setup-hook '(git-commit-turn-on-flyspell)))
 
 (use-package recentf
   :config
@@ -136,35 +135,29 @@
 
 (use-package swiper
   :ensure t
+  :bind
+  (("C-c r" . counsel-recentf)
+   ("C-c C-r" . ivy-resume)
+   ("<f6>" . ivy-resume)
+   ("M-x" . counsel-M-x)
+   ("M-y" . counsel-yank-pop)
+   ("C-x C-f" . counsel-find-file)
+   ("C-c g" . counsel-git)
+   ("C-c j" . counsel-git-grep)
+   ("C-c k" . counsel-rg)
+   ("C-s" . counsel-grep-or-swiper))
   :config
-  (progn
     (ivy-mode 1)
     (setq ivy-use-virtual-buffers t)
-    (global-set-key "\C-s" 'swiper)
-    (global-set-key (kbd "C-c C-r") 'ivy-resume)
-    (global-set-key (kbd "<f6>") 'ivy-resume)
-    (global-set-key (kbd "M-x") 'counsel-M-x)
-    (global-set-key (kbd "M-y") 'counsel-yank-pop)
-    (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-    (global-set-key (kbd "<f1> f") 'counsel-describe-function)
-    (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-    (global-set-key (kbd "<f1> l") 'counsel-load-library)
-    (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-    (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-    (global-set-key (kbd "C-c g") 'counsel-git)
-    (global-set-key (kbd "C-c j") 'counsel-git-grep)
-    (global-set-key (kbd "C-c k") 'counsel-rg)
-    (global-set-key (kbd "C-x l") 'counsel-locate)
-    (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
-    (global-set-key (kbd "C-s") 'counsel-grep-or-swiper)
     (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
     (setq counsel-git-grep-cmd-default "git --no-pager grep --full-name -n --no-color -i -e \"%s\"")
-    (setq counsel-grep-base-command "rg -i -M 120 --no-heading --line-number --color never '%s' %s")))
+    (setq counsel-grep-base-command "rg -i -M 120 --no-heading --line-number --color never '%s' %s"))
 
 (use-package org
   :ensure t
   :config
   (add-to-list 'org-file-apps '(directory . emacs)))
+
 ;; ensure environment variables inside Emacs look the same as in the user's shell
 ;; (use-package exec-path-from-shell
 ;;  :ensure t
