@@ -158,6 +158,10 @@
   :config
   (add-to-list 'org-file-apps '(directory . emacs)))
 
+(use-package csharp-mode
+  :ensure t
+  :mode "\\.cs\\'")
+
 ;; ensure environment variables inside Emacs look the same as in the user's shell
 ;; (use-package exec-path-from-shell
 ;;  :ensure t
