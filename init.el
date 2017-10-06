@@ -76,8 +76,7 @@
   :init
   (load-theme 'base16-dracula t))
 
-(set-default-font "Courier Prime Code 12")
-(setq-default line-spacing 4)
+(set-default-font "Courier Prime Code 10")
 
 (use-package spaceline
   :ensure t
