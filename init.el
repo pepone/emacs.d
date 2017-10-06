@@ -125,8 +125,7 @@
   :config
   (setq recentf-max-saved-items 2000)
   (setq recentf-auto-cleanup 'never)
-  (setq recentf-exclude '((expand-file-name "~/.emacs.d/elpa/**")
-                          "/tmp" "/ssh:" "**/*.*~" "**/##*.*##" "COMMIT_EDITMSG"))
+  (setq recentf-exclude '("**/elpa/**" "/tmp" "/ssh:" "**/*.*~" "**/##*.*##" "COMMIT_EDITMSG"))
   (recentf-mode 1))
 
 ;; Ivy completion framework with Counsel and Swipter enhacements
