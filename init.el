@@ -22,6 +22,8 @@
 (column-number-mode)
 (set-fringe-mode 0) ;; Disabling fringe (that little column on the left)
 
+(set-language-environment "UTF-8")
+
 (use-package ace-popup-menu
   :ensure t
   :config (ace-popup-menu-mode 1))
