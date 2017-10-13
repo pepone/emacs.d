@@ -162,6 +162,13 @@
   :ensure t
   :mode "\\.cs\\'")
 
+(use-package octave-mode
+  :ensure t
+  :init
+  (setq-default octave-block-offset 4)
+  (setq-default octave-continuation-offset 4)
+  :mode ("\\.m$"))
+
 ;; ensure environment variables inside Emacs look the same as in the user's shell
 ;; (use-package exec-path-from-shell
 ;;  :ensure t
