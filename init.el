@@ -169,6 +169,13 @@
   (setq-default octave-continuation-offset 4)
   :mode ("\\.m$"))
 
+(use-package groovy-mode
+  :ensure t
+  :mode (("\\.gradle\\'" . groovy-mode)))
+
+(use-package gradle-mode
+  :ensure t)
+
 ;; ensure environment variables inside Emacs look the same as in the user's shell
 ;; (use-package exec-path-from-shell
 ;;  :ensure t
