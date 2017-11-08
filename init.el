@@ -176,6 +176,13 @@
 (use-package gradle-mode
   :ensure t)
 
+(use-package fill-column-indicator
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook 'fci-mode)
+  (setq-default fill-column 120)
+  (setq fci-rule-color "#5f9ea0"))
+
 ;; ensure environment variables inside Emacs look the same as in the user's shell
 ;; (use-package exec-path-from-shell
 ;;  :ensure t
@@ -195,3 +202,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(aw-leading-char-face ((t (:inherit ace-jump-face-foreground :height 3.0)))))
+(put 'narrow-to-region 'disabled nil)
