@@ -179,6 +179,10 @@
 (use-package gradle-mode
   :ensure t)
 
+(use-package go-mode
+  :ensure t
+  :mode ("\\.go\\'" . go-mode))
+
 (use-package fill-column-indicator
   :ensure t
   :config
