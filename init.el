@@ -52,6 +52,9 @@
 (c-set-offset 'substatement-open 0)
 (c-set-offset 'comment-intro 0)
 (c-set-offset 'func-decl-cont 0)
+(setq nxml-child-indent 4)
+(setq nxml-attribute-indent 4)
+
 
 ;; Reload buffer bind to f5
 (global-set-key (kbd "<f5>") 'revert-buffer)
