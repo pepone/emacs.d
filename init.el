@@ -132,6 +132,10 @@
   (setq recentf-exclude '("**/elpa/**" "/tmp" "/ssh:" "**/*.*~" "**/##*.*##" "COMMIT_EDITMSG"))
   (recentf-mode 1))
 
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
+
 ;; Ivy completion framework with Counsel and Swipter enhacements
 (use-package counsel
   :ensure t)
