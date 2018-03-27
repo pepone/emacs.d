@@ -81,10 +81,10 @@
   (which-key-mode))
 
 ;; Theme configuration
-(use-package base16-theme
+(use-package dracula-theme
   :ensure t
   :init
-  (load-theme 'base16-dracula t))
+  (load-theme 'dracula t))
 
 (set-default-font "Courier Prime Code 10")
 
