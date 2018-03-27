@@ -24,6 +24,11 @@
 
 (set-language-environment "UTF-8")
 
+(use-package exec-path-from-shell
+  :ensure t
+  :config (when (memq window-system '(mac ns x))
+            (exec-path-from-shell-initialize)))
+
 (use-package ace-popup-menu
   :ensure t
   :config (ace-popup-menu-mode 1))
