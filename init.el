@@ -181,6 +181,12 @@
   (setq-default octave-continuation-offset 4)
   :mode ("\\.m$"))
 
+(use-package clang-format
+  :ensure t
+  :config
+  (global-set-key (kbd "C-c i") 'clang-format-region)
+  (global-set-key (kbd "C-c u") 'clang-format-buffer))
+
 (use-package groovy-mode
   :ensure t
   :mode (("\\.gradle\\'" . groovy-mode)))
