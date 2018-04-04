@@ -198,6 +198,11 @@
   :ensure t
   :mode ("\\.go\\'" . go-mode))
 
+(use-package haskell-mode
+  :config
+  :ensure t
+  :mode ("\\.hs\\'" . haskell-mode))
+
 (use-package fill-column-indicator
   :ensure t
   :config
