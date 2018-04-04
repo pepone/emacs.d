@@ -174,13 +174,6 @@
   :ensure t
   :mode "\\.cs\\'")
 
-(use-package octave-mode
-  :ensure t
-  :init
-  (setq-default octave-block-offset 4)
-  (setq-default octave-continuation-offset 4)
-  :mode ("\\.m$"))
-
 (use-package clang-format
   :ensure t
   :config
