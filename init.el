@@ -86,7 +86,7 @@
   :init
   (load-theme 'dracula t))
 
-(set-default-font "Courier Prime Code 10")
+(set-default-font "Inconsolata 12")
 
 (use-package spaceline
   :ensure t
