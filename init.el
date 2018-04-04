@@ -57,8 +57,8 @@
 (c-set-offset 'substatement-open 0)
 (c-set-offset 'comment-intro 0)
 (c-set-offset 'func-decl-cont 0)
-(setq nxml-child-indent 4)
-(setq nxml-attribute-indent 4)
+(setq-default nxml-child-indent 4)
+(setq-default nxml-attribute-indent 4)
 
 
 ;; Reload buffer bind to f5
@@ -66,7 +66,7 @@
 
 ;; Enter full screen mode f11
 (defun toggle-fullscreen ()
-  "Toggle full screen on X11"
+  "Toggle full screen on X11."
   (interactive)
   (when (eq window-system 'x)
     (set-frame-parameter
