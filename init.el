@@ -92,7 +92,7 @@
   :init
   (load-theme 'dracula t))
 
-(set-default-font "Inconsolata 12")
+(set-frame-font "Inconsolata 12")
 
 (use-package spaceline
   :ensure t
