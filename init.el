@@ -22,6 +22,12 @@
 (column-number-mode)
 (set-fringe-mode 0) ;; Disabling fringe (that little column on the left)
 
+;; Easy resize windows
+(global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
+(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "S-C-<down>") 'shrink-window)
+(global-set-key (kbd "S-C-<up>") 'enlarge-window)
+
 (set-language-environment "UTF-8")
 
 (use-package exec-path-from-shell
