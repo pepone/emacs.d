@@ -205,6 +205,11 @@
   :ensure t
   :mode ("\\.hs\\'" . haskell-mode))
 
+
+(use-package slime
+  :ensure t
+  :init (setq inferior-lisp-program "sbcl"))
+
 (use-package fill-column-indicator
   :ensure t
   :config
