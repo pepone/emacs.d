@@ -205,6 +205,10 @@
   :ensure t
   :mode ("\\.hs\\'" . haskell-mode))
 
+(use-package intero
+  :ensure t
+  :init (add-hook 'haskell-mode-hook 'intero-mode))
+
 
 (use-package slime
   :ensure t
