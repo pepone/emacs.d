@@ -147,6 +147,9 @@
   :ensure t
   :init (global-flycheck-mode))
 
+(use-package vagrant-tramp
+  :ensure t)
+
 ;; Ivy completion framework with Counsel and Swipter enhacements
 (use-package counsel
   :ensure t)
