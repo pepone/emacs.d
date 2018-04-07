@@ -1,3 +1,8 @@
+;;; init --- Emacs customizations
+
+;;; Commentary:
+
+;;; Code:
 (require 'package)
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives
@@ -14,19 +19,21 @@
       inhibit-startup-screen t
       initial-scratch-message nil)
 
-(tool-bar-mode -1) ;; disable the tool bar
-(menu-bar-mode -1) ;; disable the menu bar
-(scroll-bar-mode -1) ;; disable scroll bar
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
 (blink-cursor-mode -1)
 (line-number-mode)
 (column-number-mode)
-(set-fringe-mode 0) ;; Disabling fringe (that little column on the left)
+(set-fringe-mode 0)
 
 ;; Easy resize windows
 (global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
 (global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
 (global-set-key (kbd "S-C-<down>") 'shrink-window)
 (global-set-key (kbd "S-C-<up>") 'enlarge-window)
+
+(global-set-key (kbd "C-c w") 'whitespace-mode)
 
 (set-language-environment "UTF-8")
 
@@ -44,9 +51,6 @@
   (add-hook 'org-mode-hook (lambda ()
                              (org-bullets-mode 1)))
   :ensure t)
-
-;; activate whitespace-mode to view all whitespace characters
-(global-set-key (kbd "C-c w") 'whitespace-mode)
 
 ;; show unncessary whitespace that can mess up your diff
 (add-hook 'prog-mode-hook
@@ -215,16 +219,10 @@
   :ensure t
   :init (add-hook 'haskell-mode-hook 'intero-mode))
 
-
 (use-package slime
   :ensure t
   :init (setq inferior-lisp-program "sbcl"))
 
-;; ensure environment variables inside Emacs look the same as in the user's shell
-;; (use-package exec-path-from-shell
-;;  :ensure t
-;;  :config
-;;  (exec-path-from-shell-initialize))
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
 
