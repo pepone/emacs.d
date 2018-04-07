@@ -105,6 +105,12 @@
   :ensure nil
   :bind ("C-x C-b" . ibuffer))
 
+(use-package column-enforce-mode
+  :ensure t
+  :config (setq column-enforce-column 120)
+  :init (global-column-enforce-mode t)
+  :diminish column-enforce-mode)
+
 ;; replace ohter-window with ace-window
 (use-package ace-window
   :ensure t
@@ -213,13 +219,6 @@
 (use-package slime
   :ensure t
   :init (setq inferior-lisp-program "sbcl"))
-
-(use-package fill-column-indicator
-  :ensure t
-  :config
-  (add-hook 'prog-mode-hook 'fci-mode)
-  (setq-default fill-column 120)
-  (setq fci-rule-color "#5f9ea0"))
 
 ;; ensure environment variables inside Emacs look the same as in the user's shell
 ;; (use-package exec-path-from-shell
