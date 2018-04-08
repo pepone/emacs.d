@@ -106,8 +106,26 @@
 
 ;; Replace list buffers with Ibuffer
 (use-package ibuffer
-  :ensure nil
-  :bind ("C-x C-b" . ibuffer))
+  :ensure t
+  :bind ("C-x C-b" . ibuffer)
+  :init
+  (setq ibuffer-formats
+	'((mark modified read-only " "
+		(name 18 18 :left :elide)
+		" "
+		(mode 16 16 :left :elide)
+		" "
+		filename-and-process))))
+
+;; Group buffers by version-control repository
+(use-package ibuffer-vc
+  :ensure t
+  :init
+  (add-hook 'ibuffer-hook
+            (lambda ()
+              (ibuffer-vc-set-filter-groups-by-vc-root)
+              (unless (eq ibuffer-sorting-mode 'alphabetic)
+                (ibuffer-do-sort-by-alphabetic)))))
 
 (use-package column-enforce-mode
   :ensure t
