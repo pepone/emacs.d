@@ -244,6 +244,12 @@
   :ensure t
   :init (setq inferior-lisp-program "sbcl"))
 
+(use-package make-mode
+  :mode ("\\Make.rules\\'" . makefile-mode)
+  :mode ("\\Make.*.rules\\'" . makefile-mode)
+  :mode ("\\Make.rules.*\\'" . makefile-mode)
+  :mode ("\\Makefile.mk\\'" . makefile-mode))
+
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
 
