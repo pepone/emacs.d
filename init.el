@@ -27,6 +27,9 @@
 (column-number-mode)
 (set-fringe-mode 0)
 
+;; remember cursor position
+(save-place-mode 1)
+
 ;; Easy resize windows
 (global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
 (global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
