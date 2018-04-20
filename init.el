@@ -250,6 +250,9 @@
   :mode ("\\Make.rules.*\\'" . makefile-mode)
   :mode ("\\Makefile.mk\\'" . makefile-mode))
 
+(use-package password-store
+  :ensure t)
+
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
 
