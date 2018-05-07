@@ -253,6 +253,12 @@
 (use-package password-store
   :ensure t)
 
+(use-package yasnippet
+  :ensure t
+  :config
+  (setq yas-snippet-dirs (append yas-snippet-dirs '("~/.emacs.d/snippets"))) ;; Personal snippets
+  (yas-global-mode 1))
+
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
 

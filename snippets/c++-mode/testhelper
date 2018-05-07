@@ -1,0 +1,19 @@
+# -*- mode: snippet -*-
+# name: testhelper
+# key: testhelper
+# --
+
+class ${1:Client} : public Test::TestHelper
+{
+public:
+
+    void run(int, char**);
+};
+
+void
+$1::run(int argc, char** argv)
+{
+    $0
+}
+
+DEFINE_TEST($1)
