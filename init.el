@@ -178,7 +178,7 @@
   :config
   (setq recentf-max-saved-items 2000)
   (setq recentf-auto-cleanup 'never)
-  (setq recentf-exclude '("**/elpa/**" "/tmp" "/ssh:" "**/*.*~" "**/##*.*##" "COMMIT_EDITMSG"))
+  (setq recentf-exclude '("**/elpa/**" "/tmp" "/ssh:" "**/*.*~" "**/##*.*##" "/vagrant:" "COMMIT_EDITMSG"))
   (recentf-mode 1))
 
 (use-package flycheck
