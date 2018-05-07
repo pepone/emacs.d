@@ -258,7 +258,9 @@
   :mode ("\\Makefile.mk\\'" . makefile-mode))
 
 (use-package password-store
-  :ensure t)
+  :ensure t
+  :bind
+  (("C-c p" . password-store-copy)))
 
 (use-package yasnippet
   :ensure t
