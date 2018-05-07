@@ -184,6 +184,20 @@
 (use-package flycheck
   :ensure t
   :init (global-flycheck-mode))
+(use-package package-lint
+  :ensure t)
+
+(use-package flycheck-package
+  :ensure t
+  :init
+  (flycheck-package-setup)
+  :defer t)
+
+(use-package vagrant
+  :ensure t
+  :bind
+  (("C-c U" . vagrant-up)
+   ("C-c H" . vagrant-halt)))
 
 (use-package vagrant-tramp
   :ensure t)
