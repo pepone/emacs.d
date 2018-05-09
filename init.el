@@ -3,6 +3,7 @@
 ;;; Commentary:
 
 ;;; Code:
+
 (require 'package)
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives
@@ -306,4 +307,5 @@
 (load custom-file)
 
 (provide 'init)
+
 ;;; init.el ends here
