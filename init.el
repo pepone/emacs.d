@@ -266,6 +266,17 @@
   (setq yas-snippet-dirs (append yas-snippet-dirs '("~/.emacs.d/snippets"))) ;; Personal snippets
   (yas-global-mode 1))
 
+(use-package swift-mode
+  :if (eq system-type "darwin")
+  :ensure t
+  :mode ("\\.swift\\'" . swift-mode))
+
+(use-package flycheck-swift
+  :ensure t
+  :if (eq system-type "darwin")
+  :after (flycheck swift-mode)
+  :config (progn (add-to-list 'flycheck-checkers 'swift)))
+
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
 
