@@ -6,3 +6,5 @@ tramp
 server
 recentf
 places
+transient
+.mc-lists.el
