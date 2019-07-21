@@ -277,6 +277,10 @@
   :after (flycheck swift-mode)
   :config (progn (add-to-list 'flycheck-checkers 'swift)))
 
+;; Clojure
+(use-package cider
+  :ensure t)
+
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
 
