@@ -7,4 +7,6 @@ server
 recentf
 places
 transient
+games
+snippets
 .mc-lists.el
