@@ -277,6 +277,13 @@
   :mode ("\\Make.rules.*\\'" . makefile-mode)
   :mode ("\\Makefile.mk\\'" . makefile-mode))
 
+;;
+;; PHP
+;;
+(use-package php-mode
+  :ensure t
+  :mode "\\.php$")
+
 (use-package password-store
   :ensure t
   :bind
