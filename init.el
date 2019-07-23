@@ -278,6 +278,14 @@
   :mode ("\\Makefile.mk\\'" . makefile-mode))
 
 ;;
+;; TypeScript
+;;
+(use-package tide
+    :ensure t
+    :config
+    (add-hook 'typescript-mode-hook #'setup-tide-mode))
+
+;;
 ;; PHP
 ;;
 (use-package php-mode
