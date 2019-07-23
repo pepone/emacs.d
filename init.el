@@ -100,7 +100,7 @@
   :init
   (load-theme 'dracula t))
 
-(set-frame-font "Inconsolata 12")
+(set-frame-font "Inconsolata 14")
 
 (use-package multiple-cursors
   :ensure t
