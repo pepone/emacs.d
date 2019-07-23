@@ -7,6 +7,8 @@
 (require 'package)
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives
+             '("gnu" . "http://elpa.gnu.org/packages/"))
+(add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/"))
 (package-initialize)
 
@@ -315,8 +317,19 @@
   :config (progn (add-to-list 'flycheck-checkers 'swift)))
 
 ;; Clojure
+(use-package clojure-mode
+  :ensure t
+  :mode
+  (("\\.clj\\'" . clojure-mode)
+   ("\\.cljs.*\\'" . clojure-mode)))
+
 (use-package cider
-  :ensure t)
+  :ensure t
+  :after clojure-mode)
+
+(use-package flycheck-clojure
+  :ensure t
+  :after (flycheck clojure))
 
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
