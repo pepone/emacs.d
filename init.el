@@ -73,7 +73,7 @@
 (c-set-offset 'func-decl-cont 0)
 (setq-default nxml-child-indent 4)
 (setq-default nxml-attribute-indent 4)
-
+(setq-default ruby-indent-level 4)
 
 ;; Reload buffer bind to f5
 (global-set-key (kbd "<f5>") 'revert-buffer)
