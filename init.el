@@ -66,7 +66,7 @@
 (setq-default indent-tabs-mode nil)
 
 ;; Set appearance of a tab that is represented by 8 spaces
-(setq-default tab-width 8)
+(setq-default tab-width 4)
 (setq-default c-basic-offset 4)
 (c-set-offset 'defun-block-intro 4)
 (c-set-offset 'statement-block-intro 4)
@@ -96,13 +96,12 @@
   :config
   (which-key-mode))
 
-;; Theme configuration
-(use-package dracula-theme
-  :ensure t
+;; Theme configuration Gruvbox
+(use-package gruvbox-theme :ensure t
   :init
-  (load-theme 'dracula t))
+  (load-theme 'gruvbox-light-soft t))
 
-(set-frame-font "Inconsolata 14")
+(set-frame-font "Fira Code Light")
 
 (use-package multiple-cursors
   :ensure t
@@ -294,10 +293,10 @@
   :ensure t
   :mode "\\.php$")
 
-(use-package password-store
-  :ensure t
-  :bind
-  (("C-c p" . password-store-copy)))
+;;(use-package password-store
+;;  :ensure t
+;;  :bind
+;;  (("C-c p" . password-store-copy)))
 
 (use-package yasnippet
   :ensure t
@@ -333,6 +332,30 @@
 
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
+
+(use-package go-mode
+  :mode "\\.go"
+  :ensure t)
+
+(use-package lsp-mode
+  :ensure t
+  :hook
+  ((go-mode) . lsp)
+  (before-save . lsp-format-buffer)
+  (before-save . lsp-organize-imports)
+  :custom
+  (lsp-diagnostic-package :flycheck)
+  (lsp-prefer-capf t)
+  :config
+  (lsp-enable-which-key-integration t))
+
+(use-package yaml-mode
+  :ensure t
+  :mode "\\.yml\\'")
+
+(use-package ws-butler
+  :ensure t
+  :hook (prog-mode . ws-butler-mode))
 
 (provide 'init)
 
