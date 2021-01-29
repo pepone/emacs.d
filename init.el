@@ -65,7 +65,7 @@
 ;; use space to indent by default
 (setq-default indent-tabs-mode nil)
 
-;; Set appearance of a tab that is represented by 8 spaces
+;; Set appearance of a tab that is represented by 4 spaces
 (setq-default tab-width 4)
 (setq-default c-basic-offset 4)
 (c-set-offset 'defun-block-intro 4)
@@ -96,12 +96,10 @@
   :config
   (which-key-mode))
 
-;; Theme configuration Gruvbox
-(use-package gruvbox-theme :ensure t
-  :init
-  (load-theme 'gruvbox-light-soft t))
-
-(set-frame-font "Fira Code Light")
+(use-package spacemacs-common
+  :ensure spacemacs-theme
+  :config (load-theme 'spacemacs-dark t))
+(set-frame-font "Inconsolata")
 
 (use-package multiple-cursors
   :ensure t
@@ -165,7 +163,7 @@
   :mode (("\\.md\\'" . gfm-mode)
          ("\\.markdown\\'" . gfm-mode))
   :init
-  (setq markdown-command "multimarkdown")
+  (setq markdown-command "pandoc")
   (add-hook 'markdown-mode-hook 'flyspell-mode))
 
 ;; Magit
@@ -315,23 +313,21 @@
   :after (flycheck swift-mode)
   :config (progn (add-to-list 'flycheck-checkers 'swift)))
 
-;; Clojure
-(use-package clojure-mode
+(use-package rust-mode
   :ensure t
-  :mode
-  (("\\.clj\\'" . clojure-mode)
-   ("\\.cljs.*\\'" . clojure-mode)))
+  :defines lsp-rust-server
+  :mode ("\\.rs\\'" . rust-mode)
+  :config
+  (with-eval-after-load 'lsp-mode
+    (when (executable-find "rust-anlyzer")
+      (setq lsp-rust-server 'rust-analyzer)))
+  :custom
+  (rust-format-on-save (executable-find "rustfmt")))
 
-(use-package cider
+(use-package cargo
   :ensure t
-  :after clojure-mode)
-
-(use-package flycheck-clojure
-  :ensure t
-  :after (flycheck clojure))
-
-(setq custom-file "~/.emacs.d/custom.el")
-(load custom-file)
+  :hook (rust-mode . cargo-minor-mode)
+  :diminish cargo-minor-mode)
 
 (use-package go-mode
   :mode "\\.go"
@@ -340,14 +336,23 @@
 (use-package lsp-mode
   :ensure t
   :hook
-  ((go-mode) . lsp)
+  ((go-mode csharp-mode rust-mode) . lsp)
   (before-save . lsp-format-buffer)
   (before-save . lsp-organize-imports)
   :custom
   (lsp-diagnostic-package :flycheck)
   (lsp-prefer-capf t)
   :config
-  (lsp-enable-which-key-integration t))
+  (lsp-enable-which-key-integration t)
+  :bind
+  :bind (:map company-active-map
+              ("C-p" . company-select-previous)
+              ("C-n" . company-select-next)
+              ("C-j" . company-complete-selection)))
+
+(use-package lsp-ivy
+  :ensure t
+  :commands (lsp-ivy-workspace-symbol lsp-ivy-global-workspace-symbol))
 
 (use-package yaml-mode
   :ensure t
@@ -356,6 +361,9 @@
 (use-package ws-butler
   :ensure t
   :hook (prog-mode . ws-butler-mode))
+
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file)
 
 (provide 'init)
 
