@@ -29,6 +29,7 @@
 (line-number-mode)
 (column-number-mode)
 (set-fringe-mode 0)
+(setq ring-bell-function 'ignore) ;; Turn off alarms completely
 
 ;; remember cursor position
 (save-place-mode 1)
@@ -53,10 +54,10 @@
   :config (ace-popup-menu-mode 1))
 
 (use-package org-bullets
+  :ensure t
   :config
   (add-hook 'org-mode-hook (lambda ()
-                             (org-bullets-mode 1)))
-  :ensure t)
+                             (org-bullets-mode 1))))
 
 ;; show unncessary whitespace that can mess up your diff
 (add-hook 'prog-mode-hook
@@ -205,8 +206,8 @@
   (("C-c U" . vagrant-up)
    ("C-c H" . vagrant-halt)))
 
-(use-package vagrant-tramp
-  :ensure t)
+;;(use-package vagrant-tramp
+;;  :ensure t)
 
 ;; Ivy completion framework with Counsel and Swipter enhacements
 (use-package counsel
@@ -257,15 +258,6 @@
 (use-package go-mode
   :ensure t
   :mode ("\\.go\\'" . go-mode))
-
-(use-package haskell-mode
-  :config
-  :ensure t
-  :mode ("\\.hs\\'" . haskell-mode))
-
-(use-package intero
-  :ensure t
-  :init (add-hook 'haskell-mode-hook 'intero-mode))
 
 (use-package slime
   :ensure t
@@ -331,9 +323,62 @@
   :ensure t
   :after (flycheck clojure))
 
+;; Lsp mode
+(use-package lsp-mode
+  :ensure t
+  :init
+  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+  (setq lsp-keymap-prefix "C-c l")
+  :commands lsp)
+
+(use-package lsp-ivy
+  :ensure t
+  :commands lsp-ivy-workspace-symbol)
+
+
+;;; Rust setup
+
+(use-package rust-mode
+  :ensure t
+  :hook (rust-mode . lsp)
+  :bind
+  ("C-c g" . rust-run)
+  ("C-c t" . rust-test)
+  ("C-c b" . cargo-process-build)
+  :init
+  (which-function-mode 1)
+  (setq compilation-error-regexp-alist-alist
+      (cons '(cargo "^\\([^ \n]+\\):\\([0-9]+\\):\\([0-9]+\\): \\([0-9]+\\):\\([0-9]+\\) \\(?:[Ee]rror\\|\\([Ww]arning\\)\\):" 1 (2 . 4) (3 . 5) (6))
+        compilation-error-regexp-alist-alist))
+  :config
+  (setq rust-format-on-save t))
+
+;; Add keybindings for interacting with Cargo
+(use-package cargo
+  :ensure t
+  :hook (rust-mode . cargo-minor-mode)
+  :diminish cargo-minor-mode)
+
+(use-package flycheck-rust
+  :ensure t
+  :config (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
+
+(use-package racer
+  :ensure t
+  :after rust-mode
+  :diminish racer-mode
+  :hook (rust-mode . racer-mode)
+  :bind
+  ("M-j" . racer-find-definition)
+  ;; (:map racer-mode-map ("M-." . #'xref-find-definitions))
+  (:map racer-mode-map ("M-." . nil))
+  )
+
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
 
 (provide 'init)
 
 ;;; init.el ends here
+(put 'narrow-to-region 'disabled nil)
+(put 'narrow-to-page 'disabled nil)
