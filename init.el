@@ -99,7 +99,7 @@
 (use-package spacemacs-common
   :ensure spacemacs-theme
   :config (load-theme 'spacemacs-dark t))
-(set-frame-font "Inconsolata")
+(set-frame-font "Inconsolata 18")
 
 (use-package multiple-cursors
   :ensure t
@@ -264,6 +264,10 @@
   :ensure t
   :init (add-hook 'haskell-mode-hook 'intero-mode))
 
+(use-package paredit
+  :ensure t
+  :hook ((lisp-mode inferior-lisp emacs-lisp-mode) . paredit-mode))
+
 (use-package slime
   :ensure t
   :config
@@ -361,6 +365,32 @@
 (use-package ws-butler
   :ensure t
   :hook (prog-mode . ws-butler-mode))
+
+;; Clojure
+
+
+(use-package clojure-mode
+  :ensure t
+  :commands clojure-mode
+  :config (add-hook 'clojure-mode-hook 'paredit-mode))
+
+(use-package clojure-mode-extra-font-locking
+  :ensure t
+  :after clojure-mode)
+
+(use-package cider
+  :ensure t
+  :commands cider-mode
+  :config
+  (setq nrepl-popup-stacktraces nil)
+  (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
+  (add-hook 'cider-repl-mode-hook 'paredit-mode))
+
+(use-package flycheck-clojure
+  :ensure t
+  :commands clojure-mode
+  :config
+  (flycheck-clojure-set))
 
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
