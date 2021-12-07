@@ -7,9 +7,9 @@
 (require 'package)
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives
-             '("gnu" . "http://elpa.gnu.org/packages/"))
+             '("gnu" . "https://elpa.gnu.org/packages/"))
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/"))
+             '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
 
 ;; Bootstrap `use-package'
@@ -120,12 +120,12 @@
   :bind ("C-x C-b" . ibuffer)
   :init
   (setq ibuffer-formats
-	'((mark modified read-only " "
-		(name 18 18 :left :elide)
-		" "
-		(mode 16 16 :left :elide)
-		" "
-		filename-and-process))))
+    '((mark modified read-only " "
+        (name 18 18 :left :elide)
+        " "
+        (mode 16 16 :left :elide)
+        " "
+        filename-and-process))))
 
 ;; Group buffers by version-control repository
 (use-package ibuffer-vc
@@ -260,10 +260,6 @@
   :ensure t
   :mode ("\\.hs\\'" . haskell-mode))
 
-(use-package intero
-  :ensure t
-  :init (add-hook 'haskell-mode-hook 'intero-mode))
-
 (use-package paredit
   :ensure t
   :hook ((lisp-mode inferior-lisp emacs-lisp-mode) . paredit-mode))
@@ -348,7 +344,6 @@
   (lsp-prefer-capf t)
   :config
   (lsp-enable-which-key-integration t)
-  :bind
   :bind (:map company-active-map
               ("C-p" . company-select-previous)
               ("C-n" . company-select-next)
@@ -367,7 +362,6 @@
   :hook (prog-mode . ws-butler-mode))
 
 ;; Clojure
-
 
 (use-package clojure-mode
   :ensure t
