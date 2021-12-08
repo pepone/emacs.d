@@ -398,6 +398,9 @@
          ("C-c n g" . org-roam-graph)
          ("C-c n i" . org-roam-node-insert)
          ("C-c n c" . org-roam-capture)
+         ("C-c n o" . org-id-get-create)
+         ("C-c n t" . org-roam-tag-add)
+         ("C-c n a" . org-roam-alias-add)
          ;; Dailies
          ("C-c n j" . org-roam-dailies-capture-today))
   :init
@@ -406,6 +409,12 @@
   (org-roam-db-autosync-mode)
   ;; If using org-roam-protocol
   (require 'org-roam-protocol))
+
+(add-hook 'org-mode-hook 'org-roam-db-autosync-mode)
+
+(require 'org)
+(define-key org-mode-map (kbd "M-c &") 'org-mark-ring-goto)
+(define-key org-mode-map (kbd "M-c %") 'org-mark-ring-push)
 
 (provide 'init)
 
