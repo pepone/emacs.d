@@ -96,7 +96,19 @@
   :init
   (load-theme 'modus-operandi t))
 
-(set-frame-font "Inconsolata 18")
+;; Set default font to Aporetic Sans Mono, with a fallback size.
+(set-face-attribute 'default nil
+                    :family "Aporetic Sans Mono"
+                    :height 120)  ;; Height is in 1/10pt (120 = 12pt)
+
+;; Optional: Set other font faces (like fixed-pitch or variable-pitch)
+;; if you want consistent appearance
+(set-face-attribute 'fixed-pitch nil
+                    :family "Aporetic Sans Mono"
+                    :height 120)
+
+;; Ensure that Emacs knows to prefer this font
+(add-to-list 'default-frame-alist '(font . "Aporetic Sans Mono-12"))
 
 (use-package spaceline
   :ensure t
@@ -137,16 +149,6 @@
   :ensure t
   :config (setq ispell-program-name "aspell"))
 
-;; Markdown
-(use-package markdown-mode
-  :ensure t
-  :commands (markdown-mode gfm-mode)
-  :mode (("\\.md\\'" . gfm-mode)
-         ("\\.markdown\\'" . gfm-mode))
-  :init
-  (setq markdown-command "pandoc")
-  (add-hook 'markdown-mode-hook 'flyspell-mode))
-
 ;; Magit
 (use-package magit
   :ensure t
@@ -156,7 +158,7 @@
   (setq git-commit-setup-hook '(git-commit-turn-on-flyspell)))
 
 (use-package recentf
-  :config
+  :init
   (setq recentf-max-saved-items 2000)
   (setq recentf-auto-cleanup 'never)
   (setq recentf-exclude '("**/elpa/**" "/tmp" "/ssh:" "**/*.*~" "**/##*.*##" "/vagrant:" "COMMIT_EDITMSG"))
