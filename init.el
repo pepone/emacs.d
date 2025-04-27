@@ -52,12 +52,6 @@
   :ensure t
   :config (ace-popup-menu-mode 1))
 
-(use-package org-bullets
-  :config
-  (add-hook 'org-mode-hook (lambda ()
-                             (org-bullets-mode 1)))
-  :ensure t)
-
 ;; show unncessary whitespace that can mess up your diff
 (add-hook 'prog-mode-hook
           (lambda () (interactive) (setq show-trailing-whitespace 1)))
@@ -96,17 +90,13 @@
   :config
   (which-key-mode))
 
-(use-package spacemacs-common
-  :ensure spacemacs-theme
-  :config (load-theme 'spacemacs-dark t))
-(set-frame-font "Inconsolata 18")
-
-(use-package multiple-cursors
+;; Theme configuration
+(use-package modus-themes
   :ensure t
-  :bind
-  (("C->" . mc/mark-next-like-this)
-   ("C-<" . mc/mark-previous-like-this)
-   ("C-c C-<" . 'mc/mark-all-like-this)))
+  :init
+  (load-theme 'modus-operandi t))
+
+(set-frame-font "Inconsolata 18")
 
 (use-package spaceline
   :ensure t
@@ -127,15 +117,6 @@
         " "
         filename-and-process))))
 
-;; Group buffers by version-control repository
-(use-package ibuffer-vc
-  :ensure t
-  :init
-  (add-hook 'ibuffer-hook
-            (lambda ()
-              (ibuffer-vc-set-filter-groups-by-vc-root)
-              (unless (eq ibuffer-sorting-mode 'alphabetic)
-                (ibuffer-do-sort-by-alphabetic)))))
 
 (use-package column-enforce-mode
   :ensure t
@@ -196,15 +177,6 @@
   (flycheck-package-setup)
   :defer t)
 
-(use-package vagrant
-  :ensure t
-  :bind
-  (("C-c U" . vagrant-up)
-   ("C-c H" . vagrant-halt)))
-
-(use-package vagrant-tramp
-  :ensure t)
-
 ;; Ivy completion framework with Counsel and Swipter enhacements
 (use-package counsel
   :ensure t)
@@ -238,28 +210,6 @@
   :ensure t
   :mode "\\.cs\\'")
 
-(use-package clang-format
-  :ensure t
-  :config
-  (global-set-key (kbd "C-c i") 'clang-format-region)
-  (global-set-key (kbd "C-c u") 'clang-format-buffer))
-
-(use-package groovy-mode
-  :ensure t
-  :mode (("\\.gradle\\'" . groovy-mode)))
-
-(use-package gradle-mode
-  :ensure t)
-
-(use-package go-mode
-  :ensure t
-  :mode ("\\.go\\'" . go-mode))
-
-(use-package haskell-mode
-  :config
-  :ensure t
-  :mode ("\\.hs\\'" . haskell-mode))
-
 (use-package paredit
   :ensure t
   :hook ((lisp-mode inferior-lisp emacs-lisp-mode) . paredit-mode))
@@ -269,69 +219,6 @@
   :config
   (setq inferior-lisp-program "sbcl")
   (slime-setup '(slime-fancy slime-banner)))
-
-(use-package make-mode
-  :mode ("\\Make.rules\\'" . makefile-mode)
-  :mode ("\\Make.*.rules\\'" . makefile-mode)
-  :mode ("\\Make.rules.*\\'" . makefile-mode)
-  :mode ("\\Makefile.mk\\'" . makefile-mode))
-
-;;
-;; TypeScript
-;;
-(use-package tide
-    :ensure t
-    :config
-    (add-hook 'typescript-mode-hook #'setup-tide-mode))
-
-;;
-;; PHP
-;;
-(use-package php-mode
-  :ensure t
-  :mode "\\.php$")
-
-;;(use-package password-store
-;;  :ensure t
-;;  :bind
-;;  (("C-c p" . password-store-copy)))
-
-(use-package yasnippet
-  :ensure t
-  :config
-  (setq yas-snippet-dirs (append yas-snippet-dirs '("~/.emacs.d/snippets"))) ;; Personal snippets
-  (yas-global-mode 1))
-
-(use-package swift-mode
-  :if (eq system-type "darwin")
-  :ensure t
-  :mode ("\\.swift\\'" . swift-mode))
-
-(use-package flycheck-swift
-  :ensure t
-  :if (eq system-type "darwin")
-  :after (flycheck swift-mode)
-  :config (progn (add-to-list 'flycheck-checkers 'swift)))
-
-(use-package rust-mode
-  :ensure t
-  :defines lsp-rust-server
-  :mode ("\\.rs\\'" . rust-mode)
-  :config
-  (with-eval-after-load 'lsp-mode
-    (when (executable-find "rust-anlyzer")
-      (setq lsp-rust-server 'rust-analyzer)))
-  :custom
-  (rust-format-on-save (executable-find "rustfmt")))
-
-(use-package cargo
-  :ensure t
-  :hook (rust-mode . cargo-minor-mode)
-  :diminish cargo-minor-mode)
-
-(use-package go-mode
-  :mode "\\.go"
-  :ensure t)
 
 (use-package lsp-mode
   :ensure t
@@ -352,39 +239,6 @@
 (use-package lsp-ivy
   :ensure t
   :commands (lsp-ivy-workspace-symbol lsp-ivy-global-workspace-symbol))
-
-(use-package yaml-mode
-  :ensure t
-  :mode "\\.yml\\'")
-
-(use-package ws-butler
-  :ensure t
-  :hook (prog-mode . ws-butler-mode))
-
-;; Clojure
-
-(use-package clojure-mode
-  :ensure t
-  :commands clojure-mode
-  :config (add-hook 'clojure-mode-hook 'paredit-mode))
-
-(use-package clojure-mode-extra-font-locking
-  :ensure t
-  :after clojure-mode)
-
-(use-package cider
-  :ensure t
-  :commands cider-mode
-  :config
-  (setq nrepl-popup-stacktraces nil)
-  (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
-  (add-hook 'cider-repl-mode-hook 'paredit-mode))
-
-(use-package flycheck-clojure
-  :ensure t
-  :commands clojure-mode
-  :config
-  (flycheck-clojure-set))
 
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
