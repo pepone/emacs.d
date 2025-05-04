@@ -10,3 +10,6 @@ transient
 games
 snippets
 .mc-lists.el
+forge-database.sqlite
+history
+org-roam.db
