@@ -1,153 +1,138 @@
-;;; init --- Emacs customizations
+ ;;; init.el --- Base Emacs configuration -*- lexical-binding: t; -*-
 
-;;; Commentary:
-
-;;; Code:
-
-(require 'package)
-(setq package-enable-at-startup nil)
-(add-to-list 'package-archives
-             '("gnu" . "https://elpa.gnu.org/packages/"))
-(add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/"))
-(package-initialize)
-
-;; Bootstrap `use-package'
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
-(setq inhibit-default-init t
-      inhibit-startup-echo-area-message t
-      inhibit-startup-screen t
-      initial-scratch-message nil)
-
-(tool-bar-mode -1)
-(menu-bar-mode -1)
-(scroll-bar-mode -1)
-(blink-cursor-mode -1)
-(line-number-mode)
-(column-number-mode)
-(set-fringe-mode 0)
-
-;; remember cursor position
-(save-place-mode 1)
-
-;; Easy resize windows
-(global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
-(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
-(global-set-key (kbd "S-C-<down>") 'shrink-window)
-(global-set-key (kbd "S-C-<up>") 'enlarge-window)
-
-(global-set-key (kbd "C-c w") 'whitespace-mode)
-
-(set-language-environment "UTF-8")
-
-(use-package exec-path-from-shell
-  :ensure t
-  :config (when (memq window-system '(mac ns x))
-            (exec-path-from-shell-initialize)))
-
-(use-package ace-popup-menu
-  :ensure t
-  :config (ace-popup-menu-mode 1))
-
-;; show unncessary whitespace that can mess up your diff
-(add-hook 'prog-mode-hook
-          (lambda () (interactive) (setq show-trailing-whitespace 1)))
-
-;; use space to indent by default
-(setq-default indent-tabs-mode nil)
-
-;; Set appearance of a tab that is represented by 4 spaces
-(setq-default tab-width 4)
-(setq-default c-basic-offset 4)
-(c-set-offset 'defun-block-intro 4)
-(c-set-offset 'statement-block-intro 4)
-(c-set-offset 'substatement-open 0)
-(c-set-offset 'comment-intro 0)
-(c-set-offset 'func-decl-cont 0)
-(setq-default nxml-child-indent 4)
-(setq-default nxml-attribute-indent 4)
-(setq-default ruby-indent-level 4)
-
-;; Reload buffer bind to f5
-(global-set-key (kbd "<f5>") 'revert-buffer)
-
-;; Enter full screen mode f11
-(defun toggle-fullscreen ()
-  "Toggle full screen on X11."
-  (interactive)
-  (when (eq window-system 'x)
-    (set-frame-parameter
-     nil 'fullscreen
-     (when (not (frame-parameter nil 'fullscreen)) 'fullboth))))
-(global-set-key [f11] 'toggle-fullscreen)
-
-;; which key
-(use-package which-key
-  :ensure t
-  :config
-  (which-key-mode))
-
-;; Theme configuration
-(use-package modus-themes
-  :ensure t
-  :init
-  (load-theme 'modus-operandi t))
-
-;; Set default font to Aporetic Sans Mono, with a fallback size.
+;; Font
 (set-face-attribute 'default nil
                     :family "Aporetic Sans Mono"
-                    :height 120)  ;; Height is in 1/10pt (120 = 12pt)
+                    :height 140)
 
-;; Optional: Set other font faces (like fixed-pitch or variable-pitch)
-;; if you want consistent appearance
-(set-face-attribute 'fixed-pitch nil
-                    :family "Aporetic Sans Mono"
-                    :height 120)
+;; Theme
+(load-theme 'modus-operandi t)
 
-;; Ensure that Emacs knows to prefer this font
-(add-to-list 'default-frame-alist '(font . "Aporetic Sans Mono-12"))
+;; Package management setup
+(require 'package)
+(setq package-archives
+      '(("melpa" . "https://melpa.org/packages/")
+        ("gnu" . "https://elpa.gnu.org/packages/")))
+(package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
+
+;; Install use-package if not present
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+(require 'use-package)
+(setq use-package-always-ensure t)
+
+;; Completion setup: Vertico, Marginalia, Consult
+(use-package vertico
+  :init
+  (vertico-mode)
+  :bind
+  (:map vertico-map
+        ("C-j" . vertico-move-end-of-line-or-insert))
+  :init
+  (defun vertico-move-end-of-line-or-insert (arg)
+    "Move to end of line or insert current candidate.
+   ARG lines can be used.
+
+   When only one candidate exists exit input after insert."
+    (interactive "p")
+    (if (eolp)
+        (progn
+          (vertico-insert)
+          (when (= vertico--total 1)
+            (vertico-exit)))
+      (move-end-of-line arg))))
+
+;; Convenient path selection
+(use-package vertico-directory
+  :after vertico
+  :ensure nil ;; no need to install, it comes with vertico
+  :bind (:map vertico-map
+	      ("DEL" . vertico-directory-delete-char)))
+
+(use-package orderless
+  :custom
+  ;; Activate orderless completion
+  (completion-styles '(orderless basic))
+  ;; Enable partial completion for file wildcard support
+  (completion-category-overrides '((file (styles partial-completion)))))
+
+(use-package marginalia
+  :after vertico
+  :init
+  (marginalia-mode))
+
+;; Recentf setup
+(use-package recentf
+  :init
+  (recentf-mode 1)
+  :config
+  (setq recentf-max-saved-items 200
+        recentf-auto-cleanup 'never))
 
 (use-package spaceline
-  :ensure t
   :config
   (require 'spaceline-config)
   (spaceline-emacs-theme))
 
-;; Replace list buffers with Ibuffer
-(use-package ibuffer
-  :ensure t
-  :bind ("C-x C-b" . ibuffer)
+;; Extras to make the modeline richer
+(display-time-mode 1)
+(size-indication-mode 1)
+
+(use-package consult
+  :custom
+  ;; Disable preview
+  (consult-preview-key nil)
+  :bind
+  (("C-x b" . 'consult-buffer) ;; Switch buffer, including recentf and bookmarks
+   ("M-l"   . 'consult-git-grep) ;; Search inside a project
+   ("M-y"   . 'consult-yank-pop) ;; Paste by selecting the kill-ring
+   ("C-s"   . 'consult-line)	 ;; Search current buffer, like swiper
+   ("C-c j" . 'consult-git-grep) ;; Git grep
+   ("C-c k" . 'consult-ripgrep)	 ;; ripgrep
+   ("C-c r" . 'consult-recent-file) ;; Recent files
+   ))
+
+(use-package embark
+  :bind
+  (("C-."   . embark-act)         ;; Begin the embark process
+   ("C-;"   . embark-dwim)        ;; good alternative: M-.
+   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+  :config
+  (use-package embark-consult))
+
+;; Persist history over Emacs restarts. Vertico sorts by history position.
+(use-package savehist
   :init
-  (setq ibuffer-formats
-    '((mark modified read-only " "
-        (name 18 18 :left :elide)
-        " "
-        (mode 16 16 :left :elide)
-        " "
-        filename-and-process))))
+  (savehist-mode))
 
+;; Emacs minibuffer configurations.
+(use-package emacs
+  :custom
+  ;; Support opening new minibuffers from inside existing minibuffers.
+  (enable-recursive-minibuffers t)
+  ;; Hide commands in M-x which do not work in the current mode.  Vertico
+  ;; commands are hidden in normal buffers. This setting is useful beyond
+  ;; Vertico.
+  (read-extended-command-predicate #'command-completion-default-include-p)
+  ;; Do not allow the cursor in the minibuffer prompt
+  (minibuffer-prompt-properties
+   '(read-only t cursor-intangible t face minibuffer-prompt)))
 
-(use-package column-enforce-mode
-  :ensure t
-  :config (setq column-enforce-column 120)
-  :init (global-column-enforce-mode t)
-  :diminish column-enforce-mode)
-
-;; replace ohter-window with ace-window
-(use-package ace-window
-  :ensure t
+(use-package which-key
   :init
-  (global-set-key [remap other-window] 'ace-window)
-  (custom-set-faces
-   '(aw-leading-char-face
-     ((t (:inherit ace-jump-face-foreground :height 3.0))))))
+  (which-key-mode)
+  :config
+  (setq which-key-idle-delay 0.3) ;; faster popups
+  (setq which-key-popup-type 'side-window)) 
 
+;; Spell checker
 (use-package flyspell
-  :ensure t
-  :config (setq ispell-program-name "aspell"))
+  :hook ((text-mode . flyspell-mode)
+         (prog-mode . flyspell-prog-mode))
+  :config
+  (setq ispell-dictionary "english"))
 
 ;; Magit
 (use-package magit
@@ -157,121 +142,39 @@
   :config
   (setq git-commit-setup-hook '(git-commit-turn-on-flyspell)))
 
-(use-package recentf
-  :init
-  (setq recentf-max-saved-items 2000)
-  (setq recentf-auto-cleanup 'never)
-  (setq recentf-exclude '("**/elpa/**" "/tmp" "/ssh:" "**/*.*~" "**/##*.*##" "/vagrant:" "COMMIT_EDITMSG"))
-  (recentf-mode 1))
-
-(use-package flycheck
-  :ensure t
-  :init
-  (global-flycheck-mode)
-  (setq flycheck-emacs-lisp-load-path 'inherit))
-
-(use-package package-lint
-  :ensure t)
-
-(use-package flycheck-package
-  :ensure t
-  :init
-  (flycheck-package-setup)
-  :defer t)
-
-;; Ivy completion framework with Counsel and Swipter enhacements
-(use-package counsel
-  :ensure t)
-
-(use-package swiper
-  :ensure t
-  :bind
-  (("C-c r" . counsel-recentf)
-   ("C-c C-r" . ivy-resume)
-   ("<f6>" . ivy-resume)
-   ("M-x" . counsel-M-x)
-   ("M-y" . counsel-yank-pop)
-   ("C-x C-f" . counsel-find-file)
-   ("C-c g" . counsel-git)
-   ("C-c j" . counsel-git-grep)
-   ("C-c k" . counsel-rg)
-   ("C-s" . counsel-grep-or-swiper))
+;; Common Lisp + Paredit 
+(use-package slime
   :config
-    (ivy-mode 1)
-    (setq ivy-use-virtual-buffers t)
-    (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
-    (setq counsel-git-grep-cmd-default "git --no-pager grep --full-name -n --no-color -i -e \"%s\"")
-    (setq counsel-grep-base-command "rg -i -M 120 --no-heading --line-number --color never '%s' %s"))
-
-(use-package org
-  :ensure t
-  :config
-  (add-to-list 'org-file-apps '(directory . emacs)))
-
-(use-package csharp-mode
-  :ensure t
-  :mode "\\.cs\\'")
+  (setq inferior-lisp-program "sbcl")) ;; or another Lisp like ecl, ccl, etc.
 
 (use-package paredit
-  :ensure t
-  :hook ((lisp-mode inferior-lisp emacs-lisp-mode) . paredit-mode))
+  :hook ((emacs-lisp-mode lisp-mode lisp-interaction-mode slime-repl-mode) . paredit-mode))
 
-(use-package slime
-  :ensure t
-  :config
-  (setq inferior-lisp-program "sbcl")
-  (slime-setup '(slime-fancy slime-banner)))
-
-(use-package lsp-mode
-  :ensure t
-  :hook
-  ((go-mode csharp-mode rust-mode) . lsp)
-  (before-save . lsp-format-buffer)
-  (before-save . lsp-organize-imports)
-  :custom
-  (lsp-diagnostic-package :flycheck)
-  (lsp-prefer-capf t)
-  :config
-  (lsp-enable-which-key-integration t)
-  :bind (:map company-active-map
-              ("C-p" . company-select-previous)
-              ("C-n" . company-select-next)
-              ("C-j" . company-complete-selection)))
-
-(use-package lsp-ivy
-  :ensure t
-  :commands (lsp-ivy-workspace-symbol lsp-ivy-global-workspace-symbol))
-
-(setq custom-file "~/.emacs.d/custom.el")
-(load custom-file)
-
+;; Org Roam for notes
 (use-package org-roam
-  :ensure t
   :custom
-  (org-roam-directory (file-truename "~/knowledge"))
-  :bind (("C-c n l" . org-roam-buffer-toggle)
-         ("C-c n f" . org-roam-node-find)
-         ("C-c n g" . org-roam-graph)
-         ("C-c n i" . org-roam-node-insert)
-         ("C-c n c" . org-roam-capture)
-         ("C-c n o" . org-id-get-create)
-         ("C-c n t" . org-roam-tag-add)
-         ("C-c n a" . org-roam-alias-add)
-         ;; Dailies
-         ("C-c n j" . org-roam-dailies-capture-today))
-  :init
-  (setq org-roam-v2-ack t)
+  (org-roam-directory (file-truename "~/Documents/knowledge"))
   :config
-  (org-roam-db-autosync-mode)
-  ;; If using org-roam-protocol
-  (require 'org-roam-protocol))
+  (org-roam-db-autosync-mode))
 
-(add-hook 'org-mode-hook 'org-roam-db-autosync-mode)
-
-(require 'org)
-(define-key org-mode-map (kbd "M-c &") 'org-mark-ring-goto)
-(define-key org-mode-map (kbd "M-c %") 'org-mark-ring-push)
+;; Quality of life improvements
+(setq inhibit-startup-screen t)
+(global-display-line-numbers-mode t)
+(column-number-mode t)
+(show-paren-mode 1)
 
 (provide 'init)
-
 ;;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(slice-mode consult marginalia vertico which-key spaceline slime paredit org-roam modus-themes magit lsp-ivy flycheck-package exec-path-from-shell counsel column-enforce-mode ace-window ace-popup-menu)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
