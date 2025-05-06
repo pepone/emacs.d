@@ -13,3 +13,6 @@ snippets
 forge-database.sqlite
 history
 org-roam.db
+tree-sitter
+.org-id-locations
+bookmarks

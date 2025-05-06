@@ -12,14 +12,18 @@
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 (require 'init-packages)
+(require 'init-env)
 (require 'init-completion)
 (require 'init-ui)
 (require 'init-windowing)
 (require 'init-editing)
+(require 'init-auth)
 (require 'init-lisp)
 (require 'init-org)
 (require 'init-vcs)
 (require 'init-spellcheck)
+(require 'init-treesit)
+(require 'init-javascript)
 
 ;; Restore GC
 (setq gc-cons-threshold 800000)

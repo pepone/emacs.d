@@ -1,8 +1,5 @@
 ;;; init-vcs.el --- Version Control Setup -*- lexical-binding: t; -*-
 
-;; Auth sources
-(setq auth-sources '("~/.authinfo"))
-
 (use-package magit
   :bind
   (("C-x g" . magit-status))

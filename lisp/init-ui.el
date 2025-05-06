@@ -2,8 +2,8 @@
 
 ;; Font
 (set-face-attribute 'default nil
-                    :family "Aporetic Sans Mono"
-                    :height 140)
+		    :family "Aporetic Serif Mono"
+		    :height 160)
 
 ;; Theme
 (load-theme 'modus-operandi t)

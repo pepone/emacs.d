@@ -3,18 +3,7 @@
 ;; Vertico
 (use-package vertico
   :init
-  (vertico-mode)
-  :bind (:map vertico-map
-              ("C-j" . vertico-move-end-of-line-or-insert))
-  :init
-  (defun vertico-move-end-of-line-or-insert (arg)
-    (interactive "p")
-    (if (eolp)
-        (progn
-          (vertico-insert)
-          (when (= vertico--total 1)
-            (vertico-exit)))
-      (move-end-of-line arg))))
+  (vertico-mode))
 
 ;; Path selection
 (use-package vertico-directory
