@@ -2,6 +2,8 @@
 
 ;; Vertico
 (use-package vertico
+  :custom
+  (vertico-cycle t)
   :init
   (vertico-mode))
 
@@ -35,7 +37,11 @@
    ("C-s"   . consult-line)
    ("C-c j" . consult-git-grep)
    ("C-c k" . consult-ripgrep)
-   ("C-c r" . consult-recent-file)))
+   ("C-c r" . consult-recent-file))
+  :config
+  ;; Preview only where it matters: C-s should follow matches as you
+  ;; type, and buffer switching benefits from seeing the target.
+  (consult-customize consult-line consult-buffer :preview-key 'any))
 
 ;; Embark
 (use-package embark

@@ -3,6 +3,10 @@
 ;; Boost startup
 (setq gc-cons-threshold most-positive-fixnum)
 
+;; Must be a literal setq in init.el with the login name; Emacs checks
+;; for exactly that and ignores any other value or location.
+(setq inhibit-startup-echo-area-message "jose")
+
 ;; Set custom-file separately to avoid cluttering init.el
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
