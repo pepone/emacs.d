@@ -19,3 +19,5 @@ bookmarks
 backups/
 auto-saves/
 eln-cache/
+
+/custom.el
