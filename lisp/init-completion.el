@@ -67,11 +67,13 @@
 
 ;; Savehist
 (use-package savehist
+  :ensure nil
   :init
   (savehist-mode))
 
 ;; Emacs built-in minibuffer settings
 (use-package emacs
+  :ensure nil
   :custom
   (enable-recursive-minibuffers t)
   (read-extended-command-predicate #'command-completion-default-include-p)

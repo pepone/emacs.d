@@ -14,6 +14,7 @@
 
 ;; LSP via Eglot
 (use-package eglot
+  :ensure nil
   :hook ((js-ts-mode typescript-ts-mode tsx-ts-mode) . eglot-ensure))
 
 ;; Prettier for formatting

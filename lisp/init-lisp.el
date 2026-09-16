@@ -13,6 +13,7 @@
 
 ;; SLIME setup
 (use-package slime
+  :commands (slime slime-connect)
   :config
   (setq inferior-lisp-program "sbcl")
   (slime-setup '(slime-fancy)))

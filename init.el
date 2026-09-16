@@ -1,8 +1,5 @@
 ;;; init.el --- Emacs Configuration -*- lexical-binding: t; -*-
 
-;; Boost startup
-(setq gc-cons-threshold most-positive-fixnum)
-
 ;; Must be a literal setq in init.el with the login name; Emacs checks
 ;; for exactly that and ignores any other value or location.
 (setq inhibit-startup-echo-area-message "jose")
@@ -29,9 +26,6 @@
 (require 'init-treesit)
 (require 'init-javascript)
 (require 'init-rust)
-
-;; Restore GC
-(setq gc-cons-threshold 800000)
 
 (provide 'init)
 ;;; init.el ends here

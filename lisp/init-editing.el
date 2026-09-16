@@ -2,6 +2,7 @@
 
 ;; Recent files
 (use-package recentf
+  :ensure nil
   :init
   (recentf-mode 1)
   :config

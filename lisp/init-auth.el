@@ -11,7 +11,7 @@
 
 ;; Manual password management via pass
 (use-package password-store
-  :after auth-source-pass)
+  :commands (password-store-copy password-store-insert password-store-edit))
 
 
 (provide 'init-auth)

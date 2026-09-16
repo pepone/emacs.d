@@ -1,5 +1,14 @@
 ;;; early-init.el --- Frame setup before the first frame -*- lexical-binding: t; -*-
 
+;; Raise the GC threshold during startup and restore the original value even
+;; when init.el exits early with an error.
+(defvar my/startup-gc-cons-threshold gc-cons-threshold)
+(setq gc-cons-threshold most-positive-fixnum)
+(defun my/restore-startup-gc ()
+  "Restore the garbage collection threshold after startup."
+  (setq gc-cons-threshold my/startup-gc-cons-threshold))
+(add-hook 'emacs-startup-hook #'my/restore-startup-gc)
+
 ;; Frame parameters set here apply to every frame, including ones made
 ;; by emacsclient, and avoid the toolbar flash and resize on launch.
 (setq frame-inhibit-implied-resize t)
