@@ -45,11 +45,35 @@
    ("C-s"   . consult-line)
    ("C-c j" . consult-git-grep)
    ("C-c k" . consult-ripgrep)
-   ("C-c r" . consult-recent-file))
+   ("C-c r" . consult-recent-file)
+   ("C-c i" . consult-imenu)
+   ("C-c e" . consult-flymake)
+   ("C-c b" . consult-compile-error))
   :config
+  ;; This Consult version replaces the compilation command autoload with a
+  ;; noninteractive one; load its module before using the key binding.
+  (require 'consult-compile)
   ;; Preview only where it matters: C-s should follow matches as you
   ;; type, and buffer switching benefits from seeing the target.
   (consult-customize consult-line consult-buffer :preview-key 'any))
+
+;; Use the same completion interface for definitions and references.
+(use-package xref
+  :ensure nil
+  :custom
+  (xref-show-xrefs-function #'consult-xref)
+  (xref-show-definitions-function #'consult-xref))
+
+;; Built-in project commands live under C-x p.  C-x p p offers these actions.
+(use-package project
+  :ensure nil
+  :custom
+  (project-switch-commands
+   '((project-find-file "Find file" ?f)
+     (project-switch-to-buffer "Buffer" ?b)
+     (consult-ripgrep "Search" ?s)
+     (magit-status "Git status" ?g)
+     (project-compile "Compile" ?c))))
 
 ;; Embark
 (use-package embark
