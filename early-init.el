@@ -16,6 +16,8 @@
 (push '(menu-bar-lines . 0) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
 (push '(font . "Aporetic Serif Mono-16") default-frame-alist)
+;; Start graphical frames maximized, keeping the window decorations.
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
 ;; Keep the mode variables in sync so a later M-x toggle works first time.
 (setq tool-bar-mode nil
       menu-bar-mode nil
