@@ -12,7 +12,7 @@ This checks availability only; it does not install or run external tools."
   (interactive)
   (with-help-window "*Emacs dependencies*"
     (princ "External tools visible to Emacs\n\n")
-    (dolist (entry '(("git" . "Version control")
+    (dolist (entry `(("git" . "Version control")
                      ("rg" . "Consult search")
                      ("cc" . "Tree-sitter grammar compilation")
                      ("c++" . "Tree-sitter grammar compilation")
@@ -22,7 +22,8 @@ This checks availability only; it does not install or run external tools."
                      ("rustfmt" . "Rust formatting")
                      ("clippy-driver" . "Rust linting")
                      ("clangd" . "C/C++ language server")
-                     ("clang-format" . "C/C++ formatting")
+                     (,(or (bound-and-true-p clang-format-executable)
+                           "clang-format-19") . "C/C++ formatting")
                      ("node" . "JavaScript tools")
                      ("typescript-language-server" . "JavaScript/TypeScript language server")
                      ("prettier" . "JavaScript/TypeScript formatting")

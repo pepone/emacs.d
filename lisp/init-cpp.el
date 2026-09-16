@@ -17,12 +17,17 @@
   (c-ts-mode-indent-style 'bsd))
 
 (use-package clang-format
+  :custom
+  ;; Match zeroc-ice/ice's .github/workflows/cpp.yml.
+  (clang-format-executable "clang-format-19")
+  (clang-format-style "file")
+  (clang-format-fallback-style "none")
   :commands (clang-format-region clang-format-buffer))
 
 (defun my/c-family-format-before-save ()
   "Format with clang-format when both the executable and package are present."
-  (when (and (executable-find "clang-format")
-             (require 'clang-format nil t))
+  (when (and (require 'clang-format nil t)
+             (executable-find clang-format-executable))
     (clang-format-buffer)))
 
 (defun my/c-family-setup ()
