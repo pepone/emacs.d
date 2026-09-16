@@ -1,5 +1,13 @@
 ;;; init-completion.el --- Completion and Search -*- lexical-binding: t; -*-
 
+;; Completion in source buffers, including Eglot's completion-at-point backend.
+(use-package company
+  :hook (prog-mode . company-mode)
+  :custom
+  (company-idle-delay 0.2)
+  (company-minimum-prefix-length 1)
+  (company-tooltip-align-annotations t))
+
 ;; Vertico
 (use-package vertico
   :custom

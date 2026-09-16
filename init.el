@@ -28,6 +28,7 @@
 (require 'init-spellcheck)
 (require 'init-treesit)
 (require 'init-javascript)
+(require 'init-rust)
 
 ;; Restore GC
 (setq gc-cons-threshold 800000)

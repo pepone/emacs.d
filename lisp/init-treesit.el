@@ -3,7 +3,7 @@
 ;; Ensure treesit-auto is installed and active
 (use-package treesit-auto
   :custom
-  (treesit-auto-install 'always)
+  (treesit-auto-install t)
   :config
   (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode))

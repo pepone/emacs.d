@@ -7,14 +7,9 @@
           lisp-interaction-mode
           slime-repl-mode) . paredit-mode))
 
-;; Company for autocompletion
+;; Company in the SLIME REPL (source buffers use the shared configuration).
 (use-package company
-  :hook ((prog-mode . company-mode)
-         (slime-repl-mode . company-mode))
-  :config
-  (setq company-idle-delay 0.2
-        company-minimum-prefix-length 1
-        company-tooltip-align-annotations t))
+  :hook (slime-repl-mode . company-mode))
 
 ;; SLIME setup
 (use-package slime
