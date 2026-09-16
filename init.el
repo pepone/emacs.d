@@ -24,6 +24,7 @@
 (require 'init-vcs)
 (require 'init-spellcheck)
 (require 'init-treesit)
+(require 'init-cpp)
 (require 'init-javascript)
 (require 'init-rust)
 
