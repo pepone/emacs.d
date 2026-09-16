@@ -16,3 +16,6 @@ org-roam.db
 tree-sitter
 .org-id-locations
 bookmarks
+backups/
+auto-saves/
+eln-cache/
