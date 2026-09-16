@@ -1,7 +1,11 @@
 ;;; init-auth.el --- Authentication and Password Management -*- lexical-binding: t; -*-
 
+;; Set the fallback before enabling pass, which adds its own backend.
+(setq auth-sources '("~/.authinfo"))
+
 ;; Use pass as auth source
 (use-package auth-source-pass
+  :ensure nil
   :init
   (auth-source-pass-enable))
 
@@ -9,7 +13,5 @@
 (use-package password-store
   :after auth-source-pass)
 
-;; Fallback to ~/.authinfo if needed
-(setq auth-sources '("~/.authinfo"))
 
 (provide 'init-auth)
